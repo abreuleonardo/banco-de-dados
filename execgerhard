@@ -1,0 +1,93 @@
+CREATE DATABASE miniMundo2;
+
+USE miniMundo2;
+
+CREATE TABLE clientes (
+  codigo INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(255),
+  idade INT,
+  RG VARCHAR(255),
+  CPF VARCHAR(255),
+  endereco VARCHAR(255),
+  telefone VARCHAR(255)
+);
+ALTER TABLE clientes ADD CONSTRAINT check_idade CHECK (idade >= 18);
+
+CREATE TABLE automoveis (
+  placa VARCHAR(7) PRIMARY KEY,
+  renavam VARCHAR(20),
+  fabricante VARCHAR(255),
+  modelo VARCHAR(255),
+  ano INT
+);
+
+CREATE TABLE ocorrencias_automoveis (
+numero INT PRIMARY KEY auto_increment,
+data_ocorrencia DATE,
+local_ocorrencia VARCHAR(255),
+descricao_ocorrencia VARCHAR(255)
+);
+
+CREATE TABLE clientes_automoveis (
+cliente_codigo INT,
+placa_automovel VARCHAR(7),
+PRIMARY KEY (cliente_codigo, placa_automovel)
+);
+
+INSERT INTO clientes (nome, idade, rg, cpf, endereco, telefone) VALUES
+('Leonardo', 20, '123456789', '62211104217', 'Rua Frei Bernardino 1A', '991774184'),
+('Andre', 22, '098765432', '06799344643', 'Rua Barao de Aracati 325', '996086906'),
+('Lucas', 21, '086427130', '43355378607', 'Rua Idelfonso Albano 556', '932471748'),
+('Joao Paulo', 21, '987654021', '14435567892', 'Av Heraclito Graça 10', '940028922'),
+('Guilherme', 20, '098654456', '13278965470', 'Av Pontes Vieira 654', '996741004');
+
+INSERT INTO automoveis (placa, renavam, fabricante, modelo, ano) VALUES
+('OCD1083', '123456789', 'Chevrolet' ,'Celta', 2010),
+('NUO3752', '345675234', 'Porsche', 'Cayenne', 2021),
+('VLW0294', '157381244', 'Honda', 'PCX Deluxe 150', 2013),
+('OZA3119', '980789653', 'Hyundai', 'HB20', 2010),
+('PRF2409', '980789543', 'Toyota', 'Corolla', 2013);
+
+
+INSERT INTO ocorrencias_automoveis (data_ocorrencia, local_ocorrencia, descricao_ocorrencia, automoveis) VALUES
+('2023-09-07', 'Av Soriano Albuquerque 17', 'Falta de combustível'),
+('2023-03-09', 'Av Barão de Studart 233', 'Colisão com motocicleta'),
+('2022-07-06', 'Av Rui Barbosa 752', 'Pneu furado'),
+('2023-09-07', 'Rua Coronel Alves Teixeira', 'Colisão traseira');
+
+
+INSERT INTO clientes_automoveis (cliente_codigo, placa_automovel) VALUES
+('1', 'ABC133'),
+('2', 'DEF476'),
+('3', 'GHE389'),
+('4', 'JKL265');
+
+USE miniMundo2;
+SHOW TABLES;
+
+SELECT * FROM automoveis;
+SELECT * FROM clientes;
+SELECT * FROM clientes_automoveis;
+SELECT * FROM ocorrencias_automoveis;
+
+SELECT DISTINCT * FROM automoveis;
+
+
+USE miniMundo2;
+SELECT clientes.*, automoveis.*
+FROM clientes
+INNER JOIN clientes_automoveis ON clientes.codigo = clientes_automoveis.cliente_codigo
+INNER JOIN automoveis ON clientes_automoveis.placa_automovel = automoveis.placa;
+
+SELECT clientes.nome, clientes.cpf
+FROM clientes
+
+
+
+
+
+
+
+ 
+
+
